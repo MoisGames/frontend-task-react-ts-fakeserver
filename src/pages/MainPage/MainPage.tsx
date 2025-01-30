@@ -1,23 +1,38 @@
 // src/pages/MainPage/MainPage.tsx
 
-import React from 'react';
+import { useEffect, useState } from 'react';
 import './MainPage.css';
 import Button from '../../components/Button/Button';
 import ProductTable from '../../components/ProductTable/ProductTable';
 import { Product } from '../../interfaces/ProductInterface';
+import { fetchProductTypes } from '../../http/api';
 
-const products: Product[] = [
-  {
-    id: "KatJDS1",
-    packsNumber: 24,
-    packageType: "компрессия",
-    isArchived: true,
-    description: "Описание продукции\nВ несколько строк",
-    createdAt: "2024-02-01T16:08:24.630Z"
-  }
-];
 
 const MainPage = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const fetchedProducts = await fetchProductTypes();
+        const sortedProducts = fetchedProducts.sort((a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        setProducts(sortedProducts);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProducts();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (!products.length) return <div>No data available</div>;
+
   return (
     <main className='main-page__container'>
       <header className='main-header'>
