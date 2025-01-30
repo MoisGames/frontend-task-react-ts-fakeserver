@@ -1,12 +1,9 @@
-// src/pages/MainPage/MainPage.tsx
-
 import { useEffect, useState } from 'react';
 import './MainPage.css';
 import Button from '../../components/Button/Button';
 import ProductTable from '../../components/ProductTable/ProductTable';
-import { Product } from '../../interfaces/ProductInterface';
 import { fetchProductTypes } from '../../http/api';
-
+import { Product } from '../../interfaces/ProductInterface';
 
 const MainPage = () => {
   const [products, setProducts] = useState<Product[]>([]);

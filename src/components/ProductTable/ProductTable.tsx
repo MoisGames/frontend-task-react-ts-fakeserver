@@ -1,7 +1,15 @@
 import React from 'react';
 import './ProductTable.css';
-import { Product } from '../../interfaces/ProductInterface';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
+
+interface ProductType {
+  id: string;
+  packsNumber: number;
+  packageType: string;
+  isArchived: boolean;
+  description: string;
+  createdAt: string;
+}
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -11,30 +19,18 @@ const formatDate = (dateString: string) => {
   return `${day}.${month}.${year}`;
 };
 
-const getStatus = (isArchived: boolean) => {
-  return isArchived ? 'Архив' : 'Активно';
-};
+const getStatus = (isArchived: boolean) => isArchived ? 'Архив' : 'Активно';
 
 interface ProductTableProps {
-  products: Product[];
+  products: ProductType[];
 }
 
 const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
-  if (!products || products.length === 0) {
-    return <div>Нет данных для отображения</div>;
-  }
+  if (!products || products.length === 0) return <div>Нет данных для отображения</div>;
 
-  const handleEditClick = (id: string) => {
-    console.log(`Edit clicked for product with id: ${id}`);
-  };
-
-  const handleDeleteClick = (id: string) => {
-    console.log(`Delete clicked for product with id: ${id}`);
-  };
-
-  const handleQuestionClick = (id: string) => {
-    console.log(`Question clicked for product with id: ${id}`);
-  };
+  const handleEditClick = (id: string) => console.log(`Edit clicked for product with id: ${id}`);
+  const handleDeleteClick = (id: string) => console.log(`Delete clicked for product with id: ${id}`);
+  const handleQuestionClick = (id: string, description: string) => alert(description || 'Нет описания');
 
   return (
     <div className='table-container'>
@@ -59,12 +55,12 @@ const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
               <td>{formatDate(product.createdAt)}</td>
               <td>{getStatus(product.isArchived)}</td>
               <td>
-                <ButtonIcon type="question" onClick={() => handleQuestionClick(product.id)} />
+                <ButtonIcon type="question" onClick={() => handleQuestionClick(product.id, product.description)} product={product} />
               </td>
               <td>
-                <div className='icons-button__container'>
-                  <ButtonIcon type="pen" onClick={() => handleEditClick(product.id)} />
-                  <ButtonIcon type="trash" onClick={() => handleDeleteClick(product.id)} />
+                <div className='icon-buttons'>
+                  <ButtonIcon type="pen" onClick={() => handleEditClick(product.id)} product={product} />
+                  <ButtonIcon type="trash" onClick={() => handleDeleteClick(product.id)} product={product} />
                 </div>
               </td>
             </tr>
