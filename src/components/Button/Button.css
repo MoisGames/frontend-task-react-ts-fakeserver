@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../assets/fonts/Montserrat-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    display: inline-block;
+    font-size: 16px;
+    width: fit-content;
+    border-radius: 10px;
+    border: 1px var(--button-standart-text-color) solid;
+    
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  
+  .standart {
+    background-color: var(--button-standart-bg-color);
+    color: var(--button-standart-text-color);
+  }
+  
+  .cancel {
+    background-color: var(--button-cancel-bg-color);
+    color: var(--button-cancel-text-color);
+  }
+  
+  .delete {
+    background-color: var(--button-delete-bg-color);
+    color: var(--button-delete-text-color);
+  }

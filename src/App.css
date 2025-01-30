@@ -1,3 +1,48 @@
+:root {
+  --button-standart-bg-color: #F7EE55;
+  --button-standart-text-color: #000000;
+
+  --button-cancel-bg-color: #000000;
+  --button-cancel-text-color: white;
+
+  --button-delete-bg-color: #DA1515;
+  --button-delete-text-color: white;
+
+  --border-color: #C5C5C5;
+  --text-color: var(--border-color);
+  --table-background-color: #FFFFFF00;
+  
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../assets/fonts/Montserrat-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+}
+
+.app__container {
+  width: 70vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 *,
 *::before,
 *::after {
