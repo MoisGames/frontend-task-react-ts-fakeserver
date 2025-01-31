@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './ProductTable.css';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
@@ -16,10 +15,11 @@ const formatDate = (dateString: string) => {
 const getStatus = (isArchived: boolean) => isArchived ? 'Архив' : 'Активно';
 
 interface ProductTableProps {
-  products: Product[]
+  products: Product[];
+  loadProducts: () => void;
 }
 
-const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
+const ProductTable: React.FC<ProductTableProps> = ({ products, loadProducts }) => {
   if (!products || products.length === 0) return <div>Нет данных для отображения</div>;
 
   const handleEditClick = (id: string) => {
@@ -39,7 +39,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
         await deleteProduct(id);
         console.log('Product deleted successfully');
         alert('Продукт успешно удален');
-
+        loadProducts();
       } catch (error) {
         console.error('Failed to delete product:', error);
         alert('Ошибка при удалении продукта');

@@ -12,29 +12,29 @@ const MainPage = () => {
 
   const navigate = useNavigate();
 
+  const loadProducts = async () => {
+    try {
+      const fetchedProducts = await fetchProductTypes();
+      const sortedProducts = fetchedProducts.sort((a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      setProducts(sortedProducts);
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const fetchedProducts = await fetchProductTypes();
-        const sortedProducts = fetchedProducts.sort((a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-        setProducts(sortedProducts);
-      } catch (error) {
-        console.error('Failed to fetch products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
     loadProducts();
-  }, [products]);
+  }, []);
 
   if (loading) return <div>Loading...</div>;
   if (!products.length) return <div>No data available</div>;
 
   const handleCreateClick = () => {
-    console.log('Create clicked');
     navigate('/create');
   };
 
@@ -44,7 +44,7 @@ const MainPage = () => {
         <h1>Список выпускаемой продукции</h1>
         <Button text='Создать тип продукции' type='standart' onClick={handleCreateClick} />
       </header>
-        <ProductTable products={products} />
+        <ProductTable products={products} loadProducts={loadProducts}/>
     </main>
   );
 };
