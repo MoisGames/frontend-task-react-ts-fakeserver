@@ -30,3 +30,12 @@ export const fetchProductById = async (productId: string): Promise<Product> => {
     throw error;
   }
 };
+
+export const deleteProduct = async (productId: string): Promise<void> => {
+  try {
+    await apiClient.delete(`/productTypes/${productId}`);
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    throw error;
+  }
+};

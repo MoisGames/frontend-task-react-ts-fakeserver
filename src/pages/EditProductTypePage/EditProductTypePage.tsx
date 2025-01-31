@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './EditProductTypePage.css'
 import Button from '../../components/Button/Button';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchProductById } from '../../http/api';
+import { deleteProduct, fetchProductById } from '../../http/api';
 import { Product } from '../../interfaces/ProductInterface';
 
 const EditProductTypePage: React.FC = () => {
@@ -49,9 +49,23 @@ const EditProductTypePage: React.FC = () => {
     navigate('/');
   };
 
-  const handleDeleteClick = () => {
-    console.log('Delete clicked');
-    navigate('/');
+  const handleDeleteClick = async () => {
+    if (!product || !product.id) {
+      console.error('Product not found or no ID provided');
+      return;
+    }
+
+    const userConfirmed = window.confirm('Вы уверены, что хотите удалить этот продукт?');
+
+    if (userConfirmed) {
+      try {
+        await deleteProduct(product.id);
+        console.log('Product deleted successfully');
+        navigate('/');
+      } catch (error) {
+        console.error('Failed to delete product:', error);
+      }
+    }
   };
 
   const handleCancelClick = () => {
