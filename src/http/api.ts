@@ -1,5 +1,3 @@
-// src/http/api.ts
-
 import axios from 'axios';
 import { Product } from '../interfaces/ProductInterface';
 
@@ -36,6 +34,15 @@ export const deleteProduct = async (productId: string): Promise<void> => {
     await apiClient.delete(`/productTypes/${productId}`);
   } catch (error) {
     console.error('Error deleting product:', error);
+    throw error;
+  }
+};
+
+export const updateProduct = async (productId: string, updatedData: Partial<Product>): Promise<void> => {
+  try {
+    await apiClient.patch(`/productTypes/${productId}`, updatedData);
+  } catch (error) {
+    console.error('Error updating product:', error);
     throw error;
   }
 };

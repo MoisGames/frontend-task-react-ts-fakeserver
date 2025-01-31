@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './EditProductTypePage.css'
 import Button from '../../components/Button/Button';
 import { useParams, useNavigate } from 'react-router-dom';
-import { deleteProduct, fetchProductById } from '../../http/api';
+import { deleteProduct, fetchProductById, updateProduct } from '../../http/api';
 import { Product } from '../../interfaces/ProductInterface';
 
 const EditProductTypePage: React.FC = () => {
@@ -44,10 +44,33 @@ const EditProductTypePage: React.FC = () => {
     loadProduct();
   }, [id]);
 
-  const handleSaveClick = () => {
-    console.log('Save clicked');
-    navigate('/');
+  const handleSaveClick = async () => {
+    if (!product || !product.id) {
+      console.error('Product not found or no ID provided');
+      return;
+    }
+
+    if (packsNumber === '' || packageType === '') {
+      alert('Пожалуйста, заполните все обязательные поля.');
+      return;
+    }
+
+    const updatedData = {
+      packsNumber: Number(packsNumber),
+      packageType,
+      isArchived,
+      description,
+    };
+
+    try {
+      await updateProduct(product.id, updatedData);
+      console.log('Product updated successfully');
+      navigate('/');
+    } catch (error) {
+      console.error('Failed to update product:', error);
+    }
   };
+
 
   const handleDeleteClick = async () => {
     if (!product || !product.id) {
@@ -103,7 +126,6 @@ const EditProductTypePage: React.FC = () => {
               onChange={(e) => setPackageType(e.target.value)} 
               required 
             >
-              <option value="">Выберите тип упаковки</option>
               <option value="компрессия">компрессия</option>
               <option value="некомпрессия">Некомпрессия</option>
             </select>
