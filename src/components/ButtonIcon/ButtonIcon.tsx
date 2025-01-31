@@ -1,5 +1,3 @@
-// src/components/ButtonIcon/ButtonIcon.tsx
-
 import React from 'react';
 import './ButtonIcon.css';
 import Tooltip from '../Tooltip/Tooltip';
@@ -19,7 +17,7 @@ interface ProductType {
 
 interface ButtonIconProps {
   type: 'pen' | 'trash' | 'question';
-  onClick?: () => void; // Добавляем опциональный onClick
+  onClick?: () => void;
   product?: ProductType;
 }
 

@@ -1,15 +1,9 @@
+
 import React from 'react';
 import './ProductTable.css';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
-
-interface ProductType {
-  id: string;
-  packsNumber: number;
-  packageType: string;
-  isArchived: boolean;
-  description: string;
-  createdAt: string;
-}
+import { deleteProduct } from '../../http/api';
+import { Product } from '../../interfaces/ProductInterface';
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -22,15 +16,40 @@ const formatDate = (dateString: string) => {
 const getStatus = (isArchived: boolean) => isArchived ? 'Архив' : 'Активно';
 
 interface ProductTableProps {
-  products: ProductType[];
+  products: Product[]
 }
 
 const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
   if (!products || products.length === 0) return <div>Нет данных для отображения</div>;
 
-  const handleEditClick = (id: string) => console.log(`Edit clicked for product with id: ${id}`);
-  const handleDeleteClick = (id: string) => console.log(`Delete clicked for product with id: ${id}`);
-  const handleQuestionClick = (id: string, description: string) => alert(description || 'Нет описания');
+  const handleEditClick = (id: string) => {
+    console.log(`Edit clicked for product with id: ${id}`);
+  };
+
+  const handleDeleteClick = async (id: string) => {
+    if (!id) {
+      console.error('No product ID provided');
+      return;
+    }
+
+    const userConfirmed = window.confirm('Вы уверены, что хотите удалить этот продукт?');
+
+    if (userConfirmed) {
+      try {
+        await deleteProduct(id);
+        console.log('Product deleted successfully');
+        alert('Продукт успешно удален');
+
+      } catch (error) {
+        console.error('Failed to delete product:', error);
+        alert('Ошибка при удалении продукта');
+      }
+    }
+  };
+
+  const handleQuestionClick = (description: string) => {
+    alert(description || 'Нет описания');
+  };
 
   return (
     <div className='table-container'>
@@ -55,7 +74,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
               <td>{formatDate(product.createdAt)}</td>
               <td>{getStatus(product.isArchived)}</td>
               <td>
-                <ButtonIcon type="question" onClick={() => handleQuestionClick(product.id, product.description)} product={product} />
+                <ButtonIcon type="question" onClick={() => handleQuestionClick(product.description)} product={product} />
               </td>
               <td>
                 <div className='icons-button__container'>

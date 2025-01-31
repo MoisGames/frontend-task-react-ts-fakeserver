@@ -46,3 +46,12 @@ export const updateProduct = async (productId: string, updatedData: Partial<Prod
     throw error;
   }
 };
+
+export const createProduct = async (newProductData: Partial<Product>): Promise<void> => {
+  try {
+    await apiClient.post('/productTypes', newProductData);
+  } catch (error) {
+    console.error('Error creating product:', error);
+    throw error;
+  }
+};
