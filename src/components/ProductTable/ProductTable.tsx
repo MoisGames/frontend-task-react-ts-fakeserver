@@ -58,7 +58,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
                 <ButtonIcon type="question" onClick={() => handleQuestionClick(product.id, product.description)} product={product} />
               </td>
               <td>
-                <div className='icon-buttons'>
+                <div className='icons-button__container'>
                   <ButtonIcon type="pen" onClick={() => handleEditClick(product.id)} product={product} />
                   <ButtonIcon type="trash" onClick={() => handleDeleteClick(product.id)} product={product} />
                 </div>

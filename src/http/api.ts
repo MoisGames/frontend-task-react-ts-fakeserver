@@ -1,3 +1,5 @@
+// src/http/api.ts
+
 import axios from 'axios';
 import { Product } from '../interfaces/ProductInterface';
 
@@ -14,6 +16,17 @@ export const fetchProductTypes = async (): Promise<Product[]> => {
     return response.data;
   } catch (error) {
     console.error('Error fetching product types:', error);
+    throw error;
+  }
+};
+
+export const fetchProductById = async (productId: string): Promise<Product> => {
+  try {
+    const response = await apiClient.get(`/productTypes/${productId}`);
+    console.log('Fetched product:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching product by id:', error);
     throw error;
   }
 };

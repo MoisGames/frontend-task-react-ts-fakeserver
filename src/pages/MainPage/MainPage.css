@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'Montserrat';
     src: url('../../assets/fonts/Montserrat-Medium.ttf') format('truetype');
@@ -9,8 +10,8 @@
 .main-page__container {
     display: flex;
     flex-direction: column;
-    background-color: white;
-    width: 70vw;
+    background-color: var(--background-color);
+    width: 70%;
 
 }
 
@@ -26,4 +27,5 @@ h1 {
     justify-content: space-between;
     align-items: center;
     margin-top: 50px;
+    width: 100%;
 }

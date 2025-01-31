@@ -1,14 +1,17 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainPage from './pages/MainPage/MainPage';
+import EditProductTypePage from './pages/EditProductTypePage/EditProductTypePage';
 
-import './App.css'
-import MainPage from './pages/MainPage/MainPage'
-
-function App() {
-
+const App: React.FC = () => {
   return (
-    <div className='app__container'>
-      <MainPage />
-    </div>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/edit/:id" element={<EditProductTypePage />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;

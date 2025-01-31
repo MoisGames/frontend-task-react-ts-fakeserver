@@ -36,7 +36,7 @@ const MainPage = () => {
         <h1>Список выпускаемой продукции</h1>
         <Button text='Создать тип продукции' type='standart' />
       </header>
-      <ProductTable products={products} />
+        <ProductTable products={products} />
     </main>
   );
 };

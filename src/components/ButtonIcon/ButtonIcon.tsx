@@ -1,10 +1,12 @@
+// src/components/ButtonIcon/ButtonIcon.tsx
+
 import React from 'react';
 import './ButtonIcon.css';
 import Tooltip from '../Tooltip/Tooltip';
-
 import PenIconUrl from '../../assets/svg/pen.svg?url';
 import TrashCanIconUrl from '../../assets/svg/trash-can.svg?url';
 import QuestionIconUrl from '../../assets/svg/circle-question.svg?url';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductType {
   id: string;
@@ -17,8 +19,8 @@ interface ProductType {
 
 interface ButtonIconProps {
   type: 'pen' | 'trash' | 'question';
-  onClick: () => void;
-  product?: ProductType; 
+  onClick?: () => void; // Добавляем опциональный onClick
+  product?: ProductType;
 }
 
 const icons = {
@@ -30,11 +32,20 @@ const icons = {
 const ButtonIcon: React.FC<ButtonIconProps> = ({ type, onClick, product }) => {
   const iconUrl = icons[type];
   const tooltipText = product ? (product.description || 'Нет описания') : '';
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (type === 'pen' && product) {
+      navigate(`/edit/${product.id}`);
+    } else if (onClick) {
+      onClick();
+    }
+  };
 
   if (type === 'question' && product) {
     return (
       <Tooltip text={tooltipText}>
-        <button className='icon-button' onClick={onClick}>
+        <button className='icon-button' onClick={handleClick}>
           <img src={iconUrl} alt={type} />
         </button>
       </Tooltip>
@@ -42,7 +53,7 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ type, onClick, product }) => {
   }
 
   return (
-    <button className='icon-button' onClick={onClick}>
+    <button className='icon-button' onClick={handleClick}>
       <img src={iconUrl} alt={type} />
     </button>
   );
