@@ -1,50 +1,51 @@
-# React + TypeScript + Vite
+# Тестовое задание на позицию junior frontend разработчика
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Стек технологий
 
-Currently, two official plugins are available:
+React, TypeScript, React Hook Form
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Установка проекта
+Чтобы установить проект себе на машину:
+```sh
+# Клонирование
+git clone https://github.com/MoisGames/frontend-task-react-ts-fakeserver.git
 
-## Expanding the ESLint configuration
+# Установка зависимостей
+npm i
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+# Запуск приложения
+npm run dev
 ```
+### Взаимодействие с сервером
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Все данные хранятся в бэкенде. В качестве API тестового задания используется json-server. Чтобы запустить сервер, необходимо выполнить:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```sh
+# Переход в папку api
+cd .server/api
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+# Установка зависимостей
+npm i
+
+# Запуск сервера (будет развернут на http://localhost:8081)
+npm start
 ```
+Выполненные задачи по страницам:
+
+#### Главная страница
+
+- [ ] В таблице на главной странице отображается список типов продукции, отсортированный по дате "От нового к старому"
+- [ ] При клике на кнопку "Создать тип продукции" происходит переход на соответствующую страницу
+- [ ] При клике на иконку "Инфо" появляется тултип с описанием продукции
+- [ ] При клике на иконку "Карандаш" открывается страница редактирования типа продукции
+- [ ] При клике на иконку "Корзина" пользователь должен подтвердить желание удалить тип продукции в модальном окне, после чего происходит запрос на удаление
+- [ ] После обновления данных (создание/редактирование/удаление) список на главной обновляется.
+
+#### Страница создания/редактирования
+
+- [ ] Есть проверка пустых полей, помеченных звездочкой. А также это невозможно, т.к кол-во пачек будет 0, а 2 пункт либо компрессия или декомпрессия. 
+- [ ] При клике на кнопку "Удалить" тип продукции удаляется, предварительно запросив подтверждение пользователя
+- [ ] При клике на кнопку "Отмена" пользователь возвращается на главную страницу
+- [ ] При клике на кнопку "Создать" создается новая запись
+- [ ] При клике на кнопку "Сохранить" данные обновляются
+- [ ] После нажатия на любую из кнопок происходит редирект на главный экран
